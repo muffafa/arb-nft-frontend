@@ -18,7 +18,7 @@ export default function Home() {
     };
 
     fetchData();
-  },[page]);
+  }, [page]);
 
   function handlePrev() {
     setPage((page) => {
@@ -33,35 +33,56 @@ export default function Home() {
   }
 
   return (
-    <div>
-      <h1>Challengers</h1>
-      <p>page: {page}</p>
-      <p>pageCount: {pageCount}</p>
-      <ul>
+    <div className="container mx-auto py-8">
+      <h1 className="text-4xl font-bold mb-4">Challengers</h1>
+      <p className="text-lg mb-2">
+        Page: <span className="font-bold">{page}</span>
+      </p>
+      <p className="text-lg mb-4">
+        Page Count: <span className="font-bold">{pageCount}</span>
+      </p>
+      <ul className="space-y-4">
         {challengers.map((challenger: Challenger, index) => (
           <li key={index}>
-            <b>Twitter Handler: </b>
+            <b className="font-bold">Twitter Handler:</b>{" "}
             {challenger.twitterHandle}
             <br />
-            <b>Solver: </b>
-            {challenger.solver}
+            <b className="font-bold">Solver:</b> {challenger.solver}
             <br />
-            <b>Challange: </b>
-            {challenger.challenge}
+            <b className="font-bold">Challenge:</b> {challenger.challenge}
             <br />
-            <b>Block Number: </b>
-            {challenger.blockNumber}
+            <b className="font-bold">Block Number:</b> {challenger.blockNumber}
             <br />
-            <b>Date Created: </b>
+            <b className="font-bold">Date Created:</b>{" "}
             {challenger.dateCreated.toString()}
             <br />
           </li>
         ))}
       </ul>
-      <footer>
-        <button disabled={page === 1} onClick={handlePrev}>Prev</button>
-        <span>{page}</span>
-        <button disabled={page > pageCount} onClick={handleNext}>Next</button>
+      <footer className="flex justify-between mt-8">
+        <button
+          className={`px-4 py-2 rounded-md ${
+            page === 1
+              ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+              : "bg-blue-500 hover:bg-blue-600 text-white"
+          }`}
+          disabled={page === 1}
+          onClick={handlePrev}
+        >
+          Prev
+        </button>
+        <span className="text-lg font-bold">{page}</span>
+        <button
+          className={`px-4 py-2 rounded-md ${
+            page >= pageCount
+              ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+              : "bg-blue-500 hover:bg-blue-600 text-white"
+          }`}
+          disabled={page >= pageCount}
+          onClick={handleNext}
+        >
+          Next
+        </button>
       </footer>
     </div>
   );
